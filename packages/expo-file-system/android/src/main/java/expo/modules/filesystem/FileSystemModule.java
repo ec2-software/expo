@@ -32,6 +32,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.unimodules.core.ExportedModule;
 import org.unimodules.core.interfaces.ExpoMethod;
@@ -543,6 +544,9 @@ public class FileSystemModule extends ExportedModule implements ModuleRegistryCo
 
       OkHttpClient client =
               getOkHttpClientBuilder()
+                      .connectTimeout(0, TimeUnit.SECONDS)
+                      .readTimeout(0, TimeUnit.SECONDS)
+                      .writeTimeout(0, TimeUnit.SECONDS)
                       .addNetworkInterceptor(new Interceptor() {
                         @Override public Response intercept(Chain chain) throws IOException {
                           Response originalResponse = chain.proceed(chain.request());
